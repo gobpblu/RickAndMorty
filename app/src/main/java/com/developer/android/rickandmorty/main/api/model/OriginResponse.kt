@@ -1,11 +1,11 @@
-package com.developer.android.rickandmorty.main.models.character
+package com.developer.android.rickandmorty.main.api.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Origin(
+data class OriginResponse(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")

@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.developer.android.rickandmorty.common.mvp.BaseFragment
-import com.developer.android.rickandmorty.main.models.character.ResultResponse
+import com.developer.android.rickandmorty.main.api.model.ResultResponse
+import com.developer.android.rickandmorty.main.model.Result
 import com.developer.android.rickandmorty.main.ui.databinding.CharacterBinding
 
 class CharacterFragment(@LayoutRes layoutRes: Int): BaseFragment(layoutRes) {
@@ -26,10 +26,10 @@ class CharacterFragment(@LayoutRes layoutRes: Int): BaseFragment(layoutRes) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val data = arguments?.getSerializable("result") as ResultResponse
+        val data = arguments?.getParcelable<com.developer.android.rickandmorty.main.model.Result>("result") as Result
         with (binding) {
             context?.let { Glide.with(it).load(data.image).into(imageViewCharacter) }
-            textViewName.text = "Name: ${data.name}"
+            textViewName.text = buildString { append("Name: ${data.name}") }
             textViewGender.text = "Gender: ${data.gender}"
             textViewStatus.text = "Status: ${data.status}"
             textViewSpecies.text = "Species: ${data.species}"

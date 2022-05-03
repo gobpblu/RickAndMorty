@@ -2,7 +2,7 @@ package com.developer.android.rickandmorty
 
 import android.app.Application
 import com.developer.android.rickandmorty.common.CommonModule
-import com.developer.android.rickandmorty.main.MainModule
+import com.developer.android.rickandmorty.main.di.MainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber

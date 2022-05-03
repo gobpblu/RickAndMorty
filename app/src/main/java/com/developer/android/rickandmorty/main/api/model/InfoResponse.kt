@@ -1,8 +1,8 @@
-package com.developer.android.rickandmorty.main.models.episode
+package com.developer.android.rickandmorty.main.api.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Info(
+data class InfoResponse(
     @SerializedName("count")
     val count: Int,
     @SerializedName("pages")
