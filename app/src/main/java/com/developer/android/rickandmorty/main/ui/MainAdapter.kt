@@ -7,16 +7,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.developer.android.rickandmorty.main.api.model.ResultResponse
-import com.developer.android.rickandmorty.main.model.Result
+import com.developer.android.rickandmorty.main.model.Hero
 import timber.log.Timber
 
 
 class MainAdapter(
-    val onClick: (Result) -> Unit
+    val onClick: (Hero) -> Unit
 ) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-    private val characters = mutableListOf<Result>()
+    private val heroes = mutableListOf<Hero>()
 
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,11 +23,12 @@ class MainAdapter(
         private val textView1: TextView = itemView.findViewById(R.id.text_view1)
         private val textView2: TextView = itemView.findViewById(R.id.text_view2)
 
-        fun bind(result: Result) {
-            Glide.with(itemView.context).load(result.image).into(imageView)
-            textView1.text = result.name
-            textView2.text = result.id.toString()
-            itemView.setOnClickListener { onClick.invoke(result) }
+        fun bind(hero: Hero) {
+            Glide.with(itemView.context).load(hero.image)
+                .into(imageView)
+            textView1.text = hero.name
+            textView2.text = hero.id.toString()
+            itemView.setOnClickListener { onClick.invoke(hero) }
         }
     }
 
@@ -38,15 +38,15 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val listItem = characters[position]
+        val listItem = heroes[position]
         holder.bind(listItem)
     }
 
-    override fun getItemCount() = characters.size
+    override fun getItemCount() = heroes.size
 
-    fun setData(list: List<Result>) {
-        characters.clear()
-        characters.addAll(list)
+    fun setData(list: List<Hero>) {
+        heroes.clear()
+        heroes.addAll(list)
         Timber.i(list.toString())
         notifyDataSetChanged()
     }

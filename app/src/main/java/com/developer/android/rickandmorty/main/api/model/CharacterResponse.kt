@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 @Parcelize
-data class ResultResponse(
+data class CharacterResponse(
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")

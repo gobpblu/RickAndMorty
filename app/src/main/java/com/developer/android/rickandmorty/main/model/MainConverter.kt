@@ -5,21 +5,15 @@ import com.developer.android.rickandmorty.main.api.model.LocationResponse
 import com.developer.android.rickandmorty.main.api.model.OriginResponse
 
 object MainConverter {
-    fun fromNetwork(response: CharacterDataResponse): List<Result> {
+    fun fromNetwork(response: CharacterDataResponse): List<Hero> {
         return response.results.map { result ->
-            Result(
+            Hero(
                 id = result.id,
                 name = result.name,
                 status = result.status,
                 species = result.species,
-                type = result.type,
                 gender = result.gender,
-                origin = fromNetwork(result.origin),
-                location = fromNetwork(result.location),
                 image = result.image,
-                episode = result.episode,
-                url = result.url,
-                created = result.created
             )
         }
     }

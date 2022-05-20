@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CharacterData(
     val info: Info,
-    val results: List<Result>
+    val heroes: List<Hero>
 ) : Parcelable

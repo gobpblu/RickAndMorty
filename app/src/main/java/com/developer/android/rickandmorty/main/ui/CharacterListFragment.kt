@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.developer.android.rickandmorty.common.mvp.BaseFragmentMvp
-import com.developer.android.rickandmorty.main.api.model.ResultResponse
-import com.developer.android.rickandmorty.main.model.Result
+import com.developer.android.rickandmorty.details.CharacterFragment
+import com.developer.android.rickandmorty.main.model.Hero
+import com.developer.android.rickandmorty.main.db.database.AppDatabase
 import com.developer.android.rickandmorty.main.ui.databinding.CharactersListBinding
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -34,28 +35,34 @@ class CharacterListFragment : BaseFragmentMvp<MainContract.View, MainContract.Pr
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.getHeroes()
+        presenter.collectFlowHeroList()
+        swipeRefresh.setOnRefreshListener {
+            presenter.refresh()
+        }
         charactersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         charactersRecyclerView.adapter = adapter
-        presenter.getHeroList()
-        Timber.i("${presenter.getHeroList()}")
     }
 
-    private fun showDetailsItem(result: Result) {
+    private fun showDetailsItem(hero: Hero) {
         val fragment = CharacterFragment(R.layout.character)
         val bundle = Bundle()
-        bundle.putParcelable("result", result)
+        bundle.putParcelable("result", hero)
         fragment.arguments = bundle
         changeFragment(fragment, R.id.fragment_container)
     }
 
-    override fun showHeroList(results: List<Result>) {
-        adapter.setData(results)
+    override fun showRefreshing(isRefreshing: Boolean) {
+        binding.swipeRefresh.isRefreshing = isRefreshing
+    }
+
+    override fun showHeroList(heroes: List<Hero>) {
+        adapter.setData(heroes)
     }
 
 
     override fun failure(t: Throwable) {
         Timber.e(t.message)
     }
-
 
 }
