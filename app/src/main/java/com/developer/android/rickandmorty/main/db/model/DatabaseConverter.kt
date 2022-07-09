@@ -1,6 +1,5 @@
-package com.developer.android.rickandmorty.main.db.converters
+package com.developer.android.rickandmorty.main.db.model
 
-import com.developer.android.rickandmorty.main.db.entities.HeroEntity
 import com.developer.android.rickandmorty.main.model.Hero
 
 object DatabaseConverter {

@@ -1,6 +1,5 @@
 package com.developer.android.rickandmorty.main.repository.local
 
-import com.developer.android.rickandmorty.main.db.entities.HeroEntity
 import com.developer.android.rickandmorty.main.model.Hero
 import kotlinx.coroutines.flow.Flow
 

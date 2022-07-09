@@ -7,8 +7,8 @@ import com.developer.android.rickandmorty.main.model.Hero
 class MainRemoteRepository(
     private val api: RickAndMortyApi
 ) : MainRepository {
-    override suspend fun getResults(): List<Hero> {
-        val data = api.getResults()
+    override suspend fun getResults(page: Int): List<Hero> {
+        val data = api.getResults(page)
         return MainConverter.fromNetwork(data)
     }
 

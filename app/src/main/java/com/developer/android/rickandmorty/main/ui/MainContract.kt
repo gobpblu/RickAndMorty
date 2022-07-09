@@ -16,7 +16,7 @@ interface MainContract : BaseFragmentContract {
 
     interface Presenter : MvpPresenter<View> {
         fun refresh()
-        fun getHeroes()
+        fun getHeroes(page: Int)
         fun collectFlowHeroList()
     }
 

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.developer.android.rickandmorty.common.mvp.BaseFragmentMvp
 import com.developer.android.rickandmorty.details.CharacterFragment
 import com.developer.android.rickandmorty.main.model.Hero
-import com.developer.android.rickandmorty.main.db.database.AppDatabase
 import com.developer.android.rickandmorty.main.ui.databinding.CharactersListBinding
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -17,7 +16,7 @@ class CharacterListFragment : BaseFragmentMvp<MainContract.View, MainContract.Pr
     MainContract.View {
 
     override val presenter: MainPresenter by inject()
-    private val adapter: MainAdapter by lazy {
+    private val mainAdapter: MainAdapter by lazy {
         MainAdapter(onClick = { showDetailsItem(it) })
     }
 
@@ -35,13 +34,20 @@ class CharacterListFragment : BaseFragmentMvp<MainContract.View, MainContract.Pr
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getHeroes()
+//        presenter.getHeroes(1)
         presenter.collectFlowHeroList()
         swipeRefresh.setOnRefreshListener {
             presenter.refresh()
         }
-        charactersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        charactersRecyclerView.adapter = adapter
+        charactersRecyclerView.run {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mainAdapter
+            addOnScrollListener(MainScrollListener(
+                layoutManager as LinearLayoutManager,
+                loadNextPage = { presenter.getHeroes(it) }
+            ))
+        }
+
     }
 
     private fun showDetailsItem(hero: Hero) {
@@ -57,7 +63,7 @@ class CharacterListFragment : BaseFragmentMvp<MainContract.View, MainContract.Pr
     }
 
     override fun showHeroList(heroes: List<Hero>) {
-        adapter.setData(heroes)
+        mainAdapter.setData(heroes)
     }
 
 

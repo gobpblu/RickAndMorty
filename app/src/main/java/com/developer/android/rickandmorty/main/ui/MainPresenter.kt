@@ -19,7 +19,7 @@ class MainPresenter
         presenterScope.launch {
             try {
                 view?.showRefreshing(isRefreshing = true)
-                getHeroes()
+                getHeroes(1)
                 collectFlowHeroList()
             } catch (e: Exception) {
                 view?.failure(e)
@@ -29,10 +29,10 @@ class MainPresenter
         }
     }
 
-    override fun getHeroes() {
+    override fun getHeroes(page: Int) {
         presenterScope.launch {
             try {
-                interactor.loadHeroes()
+                interactor.loadHeroes(page)
             } catch (t: Throwable) {
                 Timber.e(t.message)
             }

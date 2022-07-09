@@ -13,8 +13,8 @@ class MainInteractor(
         return localRepository.getHeroes()
     }
 
-    suspend fun loadHeroes() {
-        val heroes = remoteRepository.getResults()
+    suspend fun loadHeroes(page: Int) {
+        val heroes = remoteRepository.getResults(page)
         localRepository.insertHeroesToDb(heroes)
     }
 }

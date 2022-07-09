@@ -4,8 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.developer.android.rickandmorty.main.db.entities.HeroEntity
-import com.developer.android.rickandmorty.main.model.Hero
+import com.developer.android.rickandmorty.main.db.model.HeroEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
